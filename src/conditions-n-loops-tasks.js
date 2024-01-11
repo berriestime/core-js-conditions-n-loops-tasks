@@ -338,8 +338,29 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length < 3) {
+    return -1;
+  }
+
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      leftSum += arr[j];
+    }
+
+    for (let j = i + 1; j < arr.length; j += 1) {
+      rightSum += arr[j];
+    }
+
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -363,8 +384,52 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+
+  let value = 1;
+  let startCol = 0;
+  let endCol = size - 1;
+  let startRow = 0;
+  let endRow = size - 1;
+
+  while (startCol <= endCol && startRow <= endRow) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      matrix[startRow][i] = value;
+      value += 1;
+    }
+    startRow += 1;
+
+    for (let i = startRow; i <= endRow; i += 1) {
+      matrix[i][endCol] = value;
+      value += 1;
+    }
+    endCol -= 1;
+
+    if (startRow <= endRow) {
+      for (let i = endCol; i >= startCol; i -= 1) {
+        matrix[endRow][i] = value;
+        value += 1;
+      }
+      endRow -= 1;
+    }
+
+    if (startCol <= endCol) {
+      for (let i = endRow; i >= startRow; i -= 1) {
+        matrix[i][startCol] = value;
+        value += 1;
+      }
+      startCol += 1;
+    }
+  }
+
+  return matrix;
 }
 
 /**
@@ -382,6 +447,7 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
+
 function rotateMatrix(/* matrix */) {
   throw new Error('Not implemented');
 }
@@ -400,6 +466,7 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
+
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
 }
