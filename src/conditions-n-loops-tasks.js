@@ -542,6 +542,7 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
+
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
 }
@@ -563,8 +564,47 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  if (number < 10) {
+    return number;
+  }
+
+  const digits = [];
+  let temp = number;
+
+  while (temp > 0) {
+    digits.push(temp % 10);
+    temp = Math.floor(temp / 10);
+  }
+  digits.reverse();
+
+  let i = digits.length - 2;
+  while (i >= 0 && digits[i] >= digits[i + 1]) {
+    i -= 1;
+  }
+
+  if (i < 0) {
+    return number;
+  }
+
+  let j = digits.length - 1;
+  while (digits[j] <= digits[i]) {
+    j -= 1;
+  }
+
+  [digits[i], digits[j]] = [digits[j], digits[i]];
+
+  let start = i + 1;
+  let end = digits.length - 1;
+  while (start < end) {
+    [digits[start], digits[end]] = [digits[end], digits[start]];
+    start += 1;
+    end -= 1;
+  }
+
+  const result = digits.reduce((acc, digit) => acc * 10 + digit, 0);
+
+  return result;
 }
 
 module.exports = {
