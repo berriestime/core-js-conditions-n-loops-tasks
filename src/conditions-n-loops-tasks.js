@@ -543,8 +543,36 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  const PATTERN_REPEAT_INTERVAL = 36;
+
+  function shuffleOnce(inputString) {
+    let evenIndexChars = '';
+    let oddIndexChars = '';
+
+    for (let i = 0; i < inputString.length; i += 1) {
+      if (i % 2 === 0) {
+        evenIndexChars += inputString[i];
+      } else {
+        oddIndexChars += inputString[i];
+      }
+    }
+
+    return evenIndexChars + oddIndexChars;
+  }
+
+  if (str.length < 3) {
+    return str;
+  }
+
+  const optimizedIterations = iterations % PATTERN_REPEAT_INTERVAL;
+  let shuffledString = str;
+
+  for (let i = 0; i < optimizedIterations; i += 1) {
+    shuffledString = shuffleOnce(shuffledString);
+  }
+
+  return shuffledString;
 }
 
 /**
